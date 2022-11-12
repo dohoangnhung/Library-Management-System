@@ -1,9 +1,9 @@
 package com.example.demo.configuration;
 
 import com.example.demo.entity.Book;
-import com.example.demo.entity.User;
+import com.example.demo.entity.Member;
 import com.example.demo.repository.BookRepository;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.MemberRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +15,9 @@ import java.util.List;
 public class DataConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository userRepository, BookRepository bookRepository) {
+    CommandLineRunner commandLineRunner(MemberRepository memberRepository, BookRepository bookRepository) {
         return args -> {
-            User nhung = User.builder()
+            Member nhung = Member.builder()
                     .name("Nhung")
                     .dob(LocalDate.of(2001,3,5))
                     .phone("0123456789")
@@ -25,7 +25,7 @@ public class DataConfig {
                     .address("284 3/2 street")
                     .build();
 
-            User sam = User.builder()
+            Member sam = Member.builder()
                     .name("Sam")
                     .dob(LocalDate.of(1992,10,12))
                     .phone("0123456788")
@@ -33,7 +33,7 @@ public class DataConfig {
                     .address("284 3/2 street")
                     .build();
 
-            userRepository.saveAll(List.of(nhung, sam));
+            memberRepository.saveAll(List.of(nhung, sam));
 
             Book book1 = Book.builder()
                     .isbn("9780552565974")

@@ -17,15 +17,15 @@ import java.util.UUID;
 public class Borrow {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID borrowId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
-            name = "user_id",
-            referencedColumnName = "userId"
+            name = "member_id",
+            referencedColumnName = "memberId"
     )
-    private User user;
+    private Member member;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(

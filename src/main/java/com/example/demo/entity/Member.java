@@ -15,22 +15,22 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "User")
+@Entity(name = "Member")
 @Table(
-        name = "User",
+        name = "Member",
         uniqueConstraints = @UniqueConstraint(name = "unique_email", columnNames = "email")
 )
-public class User {
+public class Member {
 
     @Id
-    @GeneratedValue(generator = "userid", strategy = GenerationType.SEQUENCE)
-    @GenericGenerator(name = "userid", strategy = "com.example.demo.generator.UserIdGenerator", parameters = {
+    @GeneratedValue(generator = "memberid", strategy = GenerationType.SEQUENCE)
+    @GenericGenerator(name = "memberid", strategy = "com.example.demo.generator.UserIdGenerator", parameters = {
             @Parameter(name = UserIdGenerator.INCREMENT_PARAM, value = "1"),
             @Parameter(name = UserIdGenerator.PREFIX_PARAMETER, value = "S"),
             @Parameter(name = UserIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%03d")
     })
     @Column(updatable = false)
-    private String userId;
+    private String memberId;
 
     @Column(nullable = false)
     private String name;
