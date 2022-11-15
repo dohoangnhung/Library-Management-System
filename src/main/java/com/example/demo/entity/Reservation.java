@@ -12,13 +12,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @Builder
-@Entity(name = "Borrow")
-@Table(name = "Borrow")
-public class Borrow {
+@Entity(name = "Reservation")
+@Table(name = "Reservation")
+public class Reservation {
 
     @Id
     @Column(updatable = false)
-    private UUID borrowId;
+    private UUID reserveId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
@@ -29,23 +29,15 @@ public class Borrow {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
-            name = "book_barcode",
-            referencedColumnName = "barcode"
+            name = "book_isbn",
+            referencedColumnName = "isbn"
     )
-    private BookItem bookItem;
+    private Book book;
 
-    @Column(
-            updatable = false,
-            nullable = false
-    )
-    private LocalDate dateIssued;
+    @Column(nullable = false)
+    private LocalDate creationDate;
 
-    @Column(
-            updatable = false,
-            nullable = false
-    )
-    private LocalDate dateDueToReturn;
-
-    private LocalDate dateReturned;
+    @Column(nullable = false)
+    private ReservationStatus status;
 
 }

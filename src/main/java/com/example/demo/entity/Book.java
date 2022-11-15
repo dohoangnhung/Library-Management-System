@@ -34,9 +34,12 @@ public class Book {
     private String publisher;
 
     @Column(nullable = false)
-    private String genre;
+    private String category;
 
     @Column(nullable = false)
-    private int availCopyNum;
+    private int numOfPages;
+
+    @Column(nullable = false)
+    private String shelfNum;
 
 }

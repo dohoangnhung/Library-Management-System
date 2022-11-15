@@ -42,8 +42,9 @@ public class DataConfig {
                     .author("R.J. Palacio")
                     .price(8.63)
                     .publisher("Penguin Random House UK")
-                    .genre("Children's novel")
-                    .availCopyNum(5)
+                    .category("Children's novel")
+                    .numOfPages(320)
+                    .shelfNum("100.1 PAL")
                     .build();
 
             Book book2 = Book.builder()
@@ -53,8 +54,9 @@ public class DataConfig {
                     .author("Markus Zusak")
                     .price(10.15)
                     .publisher("Penguin Random House US")
-                    .genre("Historical fiction")
-                    .availCopyNum(6)
+                    .category("Historical fiction")
+                    .numOfPages(592)
+                    .shelfNum("102.5 ZUS")
                     .build();
 
             bookRepository.saveAll(List.of(book1, book2));
