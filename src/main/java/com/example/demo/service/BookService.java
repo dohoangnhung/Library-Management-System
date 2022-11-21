@@ -49,7 +49,7 @@ public class BookService {
         if (book.getPublisher() != null && !Objects.equals(book.getPublisher(), "")) {
             foundBook.setPublisher(book.getPublisher());
         }
-        if (book.getCategory() != null && !Objects.equals(book.getCategory(), "")) {
+        if (book.getCategory() != null) {
             foundBook.setCategory(book.getCategory());
         }
         if (book.getNumOfPages() > 0) {
