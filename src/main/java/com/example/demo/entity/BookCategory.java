@@ -1,0 +1,34 @@
+package com.example.demo.entity;
+
+public enum BookCategory {
+
+    ARTS_AND_MUSIC,
+    BIOGRAPHIES,
+    BUSINESS,
+    COMICS,
+    COMPUTERS_AND_TECH,
+    COOKING,
+    EDU_AND_REFERENCE,
+    ENTERTAINMENT,
+    HEALTH_AND_FITNESS,
+    HISTORY,
+    HOBBIES_AND_CRAFTS,
+    HOME_AND_GARDEN,
+    HORROR,
+    KIDS,
+    LITERATURE_AND_FICTION,
+    MEDICAL,
+    MYSTERIES,
+    PARENTING,
+    RELIGION,
+    ROMANCE,
+    SCIFI_AND_FANTASY,
+    SCIENCE_AND_MATH,
+    SELF_HELP,
+    SOCIAL_SCIENCES,
+    SPORTS,
+    TEEN,
+    TRAVEL,
+    TRUE_CRIME
+
+}

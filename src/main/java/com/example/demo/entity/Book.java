@@ -34,7 +34,8 @@ public class Book {
     private String publisher;
 
     @Column(nullable = false)
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private BookCategory category;
 
     @Column(nullable = false)
     private int numOfPages;

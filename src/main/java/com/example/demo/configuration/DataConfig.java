@@ -1,6 +1,7 @@
 package com.example.demo.configuration;
 
 import com.example.demo.entity.Book;
+import com.example.demo.entity.BookCategory;
 import com.example.demo.entity.Member;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.MemberRepository;
@@ -42,7 +43,7 @@ public class DataConfig {
                     .author("R.J. Palacio")
                     .price(8.63)
                     .publisher("Penguin Random House UK")
-                    .category("Children's novel")
+                    .category(BookCategory.LITERATURE_AND_FICTION)
                     .numOfPages(320)
                     .shelfNum("100.1 PAL")
                     .build();
@@ -54,7 +55,7 @@ public class DataConfig {
                     .author("Markus Zusak")
                     .price(10.15)
                     .publisher("Penguin Random House US")
-                    .category("Historical fiction")
+                    .category(BookCategory.LITERATURE_AND_FICTION)
                     .numOfPages(592)
                     .shelfNum("102.5 ZUS")
                     .build();
