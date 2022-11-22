@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Member;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.utils.PhoneNumberValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,21 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PhoneNumberValidator phoneNumberValidator;
 
     @Autowired
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PhoneNumberValidator phoneNumberValidator) {
         this.memberRepository = memberRepository;
+        this.phoneNumberValidator = phoneNumberValidator;
     }
 
     public void addNewMember(Member member) {
         boolean exist = memberRepository.existsById(member.getEmail());
         if (exist) {
             throw new IllegalStateException("The email has taken!");
+        }
+        if (!phoneNumberValidator.test(member.getPhone())) {
+            throw new IllegalStateException("Phone number: " + member.getPhone() + " is not valid!");
         }
         memberRepository.save(member);
     }
@@ -65,7 +71,8 @@ public class MemberService {
         if (member.getDob() != null) {
             memberFound.setDob(member.getDob());
         }
-        if (member.getPhone() != null && !Objects.equals(member.getPhone(), "")) {
+        if (member.getPhone() != null && !Objects.equals(member.getPhone(), "")
+                && phoneNumberValidator.test(member.getPhone())) {
             memberFound.setPhone(member.getPhone());
         }
         if (member.getAddress() != null && !Objects.equals(member.getAddress(), "")) {
