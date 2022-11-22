@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,6 +21,16 @@ public class Borrow {
 
     @Id
     @Column(updatable = false)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(
+            name = "uuid",
+            strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = @Parameter(
+                    name = "uuid_generator_strategy_class",
+                    value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+            )
+    )
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID borrowId;
 
     @ManyToOne(cascade = CascadeType.ALL)

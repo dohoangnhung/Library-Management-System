@@ -49,7 +49,7 @@ public class Member {
     private String address;
 
     @Column(nullable = false)
-    @Value("${some.key:false}")
+    @Value("false")
     private boolean isProhibited;
 
 }

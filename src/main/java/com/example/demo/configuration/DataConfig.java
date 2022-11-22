@@ -1,8 +1,7 @@
 package com.example.demo.configuration;
 
-import com.example.demo.entity.Book;
-import com.example.demo.entity.BookCategory;
-import com.example.demo.entity.Member;
+import com.example.demo.entity.*;
+import com.example.demo.repository.BookItemRepository;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.MemberRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +15,9 @@ import java.util.List;
 public class DataConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(MemberRepository memberRepository, BookRepository bookRepository) {
+    CommandLineRunner commandLineRunner(MemberRepository memberRepository,
+                                        BookRepository bookRepository,
+                                        BookItemRepository bookItemRepository) {
         return args -> {
             Member nhung = Member.builder()
                     .name("Nhung")
@@ -61,6 +62,38 @@ public class DataConfig {
                     .build();
 
             bookRepository.saveAll(List.of(book1, book2));
+
+            BookItem item1 = BookItem.builder()
+                    .barcode("012301230123")
+                    .book(book1)
+                    .status(BookStatus.AVAILABLE)
+                    .build();
+
+            BookItem item2 = BookItem.builder()
+                    .barcode("123412341234")
+                    .book(book1)
+                    .status(BookStatus.AVAILABLE)
+                    .build();
+
+            BookItem item3 = BookItem.builder()
+                    .barcode("789478947894")
+                    .book(book1)
+                    .status(BookStatus.AVAILABLE)
+                    .build();
+
+            BookItem item4 = BookItem.builder()
+                    .barcode("456745674567")
+                    .book(book2)
+                    .status(BookStatus.AVAILABLE)
+                    .build();
+
+            BookItem item5 = BookItem.builder()
+                    .barcode("158915891589")
+                    .book(book2)
+                    .status(BookStatus.AVAILABLE)
+                    .build();
+
+            bookItemRepository.saveAll(List.of(item1, item2, item3, item4, item5));
         };
     }
 

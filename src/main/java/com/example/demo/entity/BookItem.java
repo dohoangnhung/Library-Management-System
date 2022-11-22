@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 
@@ -26,6 +27,7 @@ public class BookItem {
     private Book book;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private BookStatus status;
 
 }
