@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,6 +20,16 @@ public class Reservation {
 
     @Id
     @Column(updatable = false)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(
+            name = "uuid",
+            strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = @org.hibernate.annotations.Parameter(
+                    name = "uuid_generator_strategy_class",
+                    value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+            )
+    )
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID reserveId;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -38,6 +50,7 @@ public class Reservation {
     private LocalDate creationDate;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 
 }
