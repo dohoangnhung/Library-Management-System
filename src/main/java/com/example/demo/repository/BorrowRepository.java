@@ -13,8 +13,14 @@ public interface BorrowRepository extends JpaRepository<Borrow, UUID> {
 
     @Query(
             nativeQuery = true,
-            value = "select * from Borrow where book_barcode = ?1 and date_returned is null"
+            value = "select * from borrow where book_barcode = ?1 and date_returned is null"
     )
     Optional<Borrow> selectBorrowedBookItemByBarcode(String barcode);
+
+    @Query(
+            nativeQuery = true,
+            value = "select count(*) from borrow where member_id = ?1 and date_returned is null"
+    )
+    int numberOfIssuedBookByMemberId(String memberId);
 
 }
