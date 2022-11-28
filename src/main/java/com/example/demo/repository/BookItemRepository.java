@@ -16,4 +16,16 @@ public interface BookItemRepository extends JpaRepository<BookItem, String> {
     )
     List<BookItem> selectAvailableBookItems(String isbn);
 
+    @Query(
+            nativeQuery = true,
+            value = "select barcode from book_item where isbn = ?1"
+    )
+    List<String> selectAllBarcodeByIsbn(String isbn);
+
+    @Query(
+            nativeQuery = true,
+            value = "select count(*) from book_item where isbn = ?1"
+    )
+    int numberOfBookItemsByIsbn(String isbn);
+
 }

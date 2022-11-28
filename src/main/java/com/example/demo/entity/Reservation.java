@@ -32,14 +32,14 @@ public class Reservation {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID reserveId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(
             name = "member_id",
             referencedColumnName = "memberId"
     )
     private Member member;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(
             name = "book_isbn",
             referencedColumnName = "isbn"

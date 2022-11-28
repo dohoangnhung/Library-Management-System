@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Book;
-import com.example.demo.entity.BookCategory;
 import com.example.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +21,11 @@ public class BookController {
     @PostMapping("/book")
     public void addBook(@RequestBody Book book) {
         bookService.addBook(book);
+    }
+
+    @PostMapping(value = "/book/{isbn}")
+    public void addBookItem(@PathVariable String isbn, @RequestParam String barcode) {
+        bookService.addBookItem(isbn, barcode);
     }
 
     @PutMapping("/book/{isbn}")

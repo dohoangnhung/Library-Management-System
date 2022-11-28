@@ -33,14 +33,14 @@ public class Borrow {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID borrowId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(
             name = "member_id",
             referencedColumnName = "memberId"
     )
     private Member member;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(
             name = "book_barcode",
             referencedColumnName = "barcode"

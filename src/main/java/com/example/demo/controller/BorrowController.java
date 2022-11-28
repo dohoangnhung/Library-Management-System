@@ -18,9 +18,9 @@ public class BorrowController {
         return borrowService.borrowBook(memberId, barcode);
     }
 
-    @PutMapping("/borrow/{borrowId}")
-    public Borrow returnBook(@PathVariable UUID borrowId) {
-        return borrowService.returnBook(borrowId);
+    @PutMapping("/borrow/{barcode}")
+    public Borrow returnBook(@PathVariable String barcode) {
+        return borrowService.returnBook(barcode);
     }
 
 }

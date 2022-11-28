@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Service
 public class BorrowService {
@@ -42,6 +41,7 @@ public class BorrowService {
         BookItem bookItem = bookItemRepository.findById(barcode)
                 .orElseThrow(() -> new IllegalStateException("Book item with barcode " + barcode + " does not exist!"));
         bookItem.setStatus(BookStatus.BORROWED);
+        bookItemRepository.save(bookItem);
         borrow.setBookItem(bookItem);
 
         borrow.setDateIssued(LocalDate.now());
@@ -51,14 +51,15 @@ public class BorrowService {
         return borrow;
     }
 
-    public Borrow returnBook(UUID borrowId) {
-        Borrow borrow = borrowRepository.findById(borrowId)
-                .orElseThrow(() -> new IllegalStateException("The check-out with id " + borrowId + " does not exist!"));
+    public Borrow returnBook(String barcode) {
+        Borrow borrow = borrowRepository.selectBorrowedBookItemByBarcode(barcode)
+                .orElseThrow(() -> new IllegalStateException("The check-out with book item " + barcode + " does not exist!"));
         borrow.setDateReturned(LocalDate.now());
         borrowRepository.save(borrow);
 
         BookItem bookItem = borrow.getBookItem();
         bookItem.setStatus(BookStatus.AVAILABLE);
+        bookItemRepository.save(bookItem);
 
         if (borrow.getDateReturned().isAfter(borrow.getDateDueToReturn())) {
             System.out.println("Overdue book!");

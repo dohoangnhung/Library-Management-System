@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Book;
+import com.example.demo.entity.BookItem;
+import com.example.demo.entity.BookStatus;
+import com.example.demo.repository.BookItemRepository;
 import com.example.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +15,13 @@ import java.util.Objects;
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final BookItemRepository bookItemRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository,
+                       BookItemRepository bookItemRepository) {
         this.bookRepository = bookRepository;
+        this.bookItemRepository = bookItemRepository;
     }
 
     public List<Book> getAllBooks() {
@@ -28,6 +34,18 @@ public class BookService {
             throw new IllegalStateException("Book entry with isbn " + book.getIsbn() + " already exists!");
         }
         bookRepository.save(book);
+    }
+
+    public void addBookItem(String isbn, String barcode) {
+        Book book = bookRepository.findById(isbn)
+                .orElseThrow(() -> new IllegalStateException("Book entry with isbn " + isbn + " already exists!"));
+
+        int currentItemsNumber = bookItemRepository.numberOfBookItemsByIsbn(isbn);
+        if (currentItemsNumber == book.getNumOfCopies()) {
+            throw new IllegalStateException("The number of book items have matched the data!");
+        }
+        BookItem bookItem = new BookItem(barcode, book, BookStatus.AVAILABLE);
+        bookItemRepository.save(bookItem);
     }
 
     public void editBook(String isbn, Book book) {
@@ -66,7 +84,8 @@ public class BookService {
         if (!exist) {
             throw new IllegalStateException("Book entry with isbn " + isbn + " does not exist!");
         }
-        bookRepository.deleteById(isbn);
+        List<String> bookItems = bookItemRepository.selectAllBarcodeByIsbn(isbn);
+        bookItemRepository.deleteAllById(bookItems);
     }
 
     public List<Book> searchBooksByTitleOrAuthor(String keyword) {
