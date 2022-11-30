@@ -97,7 +97,7 @@ public class BorrowService {
         if (reservation.isPresent()) {
             String title = borrow.getBookItem().getBook().getTitle();
             String memberEmail = reservation.get().getMember().getEmail();
-            emailSenderService.sendEmail(
+            emailSenderService.sendMail(
                     memberEmail,
                     "About your reservation on the book " + title,
                     "The book " + title + " is available now. Do you still want to check out this book?"
