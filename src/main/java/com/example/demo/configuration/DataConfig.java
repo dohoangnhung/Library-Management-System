@@ -40,7 +40,7 @@ public class DataConfig {
             Book book1 = Book.builder()
                     .isbn("9780552565974")
                     .title("Wonder")
-                    .numOfCopies(5)
+                    .numOfCopies(3)
                     .author("R.J. Palacio")
                     .price(8.63)
                     .publisher("Penguin Random House UK")
@@ -52,7 +52,7 @@ public class DataConfig {
             Book book2 = Book.builder()
                     .isbn("9780385754729")
                     .title("The Book Thief")
-                    .numOfCopies(6)
+                    .numOfCopies(3)
                     .author("Markus Zusak")
                     .price(10.15)
                     .publisher("Penguin Random House US")
@@ -64,36 +64,42 @@ public class DataConfig {
             bookRepository.saveAll(List.of(book1, book2));
 
             BookItem item1 = BookItem.builder()
-                    .barcode("012301230123")
+                    .barcode("1111")
                     .book(book1)
                     .status(BookStatus.AVAILABLE)
                     .build();
 
             BookItem item2 = BookItem.builder()
-                    .barcode("123412341234")
+                    .barcode("2222")
                     .book(book1)
                     .status(BookStatus.AVAILABLE)
                     .build();
 
             BookItem item3 = BookItem.builder()
-                    .barcode("789478947894")
+                    .barcode("3333")
                     .book(book1)
                     .status(BookStatus.AVAILABLE)
                     .build();
 
             BookItem item4 = BookItem.builder()
-                    .barcode("456745674567")
+                    .barcode("4444")
                     .book(book2)
                     .status(BookStatus.AVAILABLE)
                     .build();
 
             BookItem item5 = BookItem.builder()
-                    .barcode("158915891589")
+                    .barcode("5555")
                     .book(book2)
                     .status(BookStatus.AVAILABLE)
                     .build();
 
-            bookItemRepository.saveAll(List.of(item1, item2, item3, item4, item5));
+            BookItem item6 = BookItem.builder()
+                    .barcode("6666")
+                    .book(book2)
+                    .status(BookStatus.AVAILABLE)
+                    .build();
+
+            bookItemRepository.saveAll(List.of(item1, item2, item3, item4, item5, item6));
         };
     }
 

@@ -49,7 +49,7 @@ public class BorrowService {
 
         // check the number of books issued to the member
         int issuedBooks = borrowRepository.numberOfIssuedBookByMemberId(memberId);
-        if (issuedBooks > 5) {
+        if (issuedBooks >= 5) {
             throw new IllegalStateException("The number of issued books to the member " + memberId + " exceeds 5 books!");
         }
         borrow.setMember(member);
