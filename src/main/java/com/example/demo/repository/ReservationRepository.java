@@ -33,4 +33,11 @@ public interface ReservationRepository extends JpaRepository<Reservation, UUID> 
     )
     void markCompletedReservation(UUID reserveId);
 
+    @Query(
+            nativeQuery = true,
+            value = "select * from reservation where book_isbn = ?1 and status = 'WAITING' and " +
+                    "creation_date in (select min(creation_date) from reservation where book_isbn = ?1 and status = 'WAITING')"
+    )
+    Optional<Reservation> selectNearestReservation(String isbn);
+
 }

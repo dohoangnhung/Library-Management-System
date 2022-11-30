@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.BookItem;
-import com.example.demo.entity.BookStatus;
-import com.example.demo.entity.Borrow;
-import com.example.demo.entity.Member;
+import com.example.demo.entity.*;
 import com.example.demo.repository.BookItemRepository;
 import com.example.demo.repository.BorrowRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.ReservationRepository;
+import com.example.demo.utils.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +20,19 @@ public class BorrowService {
     private final MemberRepository memberRepository;
     private final BookItemRepository bookItemRepository;
     private final ReservationRepository reservationRepository;
+    private final EmailSenderService emailSenderService;
 
     @Autowired
     public BorrowService(BorrowRepository borrowRepository,
                          MemberRepository memberRepository,
                          BookItemRepository bookItemRepository,
-                         ReservationRepository reservationRepository) {
+                         ReservationRepository reservationRepository,
+                         EmailSenderService emailSenderService) {
         this.borrowRepository = borrowRepository;
         this.memberRepository = memberRepository;
         this.bookItemRepository = bookItemRepository;
         this.reservationRepository = reservationRepository;
+        this.emailSenderService = emailSenderService;
     }
 
     public Borrow borrowBook(String memberId, String barcode) {
@@ -83,15 +84,30 @@ public class BorrowService {
         Borrow borrow = borrowRepository.selectBorrowedBookItemByBarcode(barcode)
                 .orElseThrow(() -> new IllegalStateException("The check-out with book item " + barcode + " does not exist!"));
         borrow.setDateReturned(LocalDate.now());
+
+        // TODO: calculate fine
+        if (borrow.getDateReturned().isAfter(borrow.getDateDueToReturn())) {
+            System.out.println("Overdue book!");
+        }
+
         borrowRepository.save(borrow);
+
+        String isbn = borrow.getBookItem().getBook().getIsbn();
+        Optional<Reservation> reservation = reservationRepository.selectNearestReservation(isbn);
+        if (reservation.isPresent()) {
+            String title = borrow.getBookItem().getBook().getTitle();
+            String memberEmail = reservation.get().getMember().getEmail();
+            emailSenderService.sendEmail(
+                    memberEmail,
+                    "About your reservation on the book " + title,
+                    "The book " + title + " is available now. Do you still want to check out this book?"
+            );
+        }
 
         BookItem bookItem = borrow.getBookItem();
         bookItem.setStatus(BookStatus.AVAILABLE);
         bookItemRepository.save(bookItem);
 
-        if (borrow.getDateReturned().isAfter(borrow.getDateDueToReturn())) {
-            System.out.println("Overdue book!");
-        }
         return borrow;
     }
 

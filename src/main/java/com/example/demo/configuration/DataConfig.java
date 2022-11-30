@@ -23,7 +23,7 @@ public class DataConfig {
                     .name("Nhung")
                     .dob(LocalDate.of(2001,3,5))
                     .phone("0123456789")
-                    .email("nhung@gmail.com")
+                    .email("dhnhung.itiu@gmail.com")
                     .address("284 3/2 street")
                     .build();
 
