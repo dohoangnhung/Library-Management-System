@@ -37,13 +37,20 @@ public class ReservationService {
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalStateException("Member with id " + memberId + " does not exist!"));
+
+        // check if member is prohibited
         if (member.isProhibited()) {
             throw new IllegalStateException("Member with id " + memberId + " is prohibited, he/she cannot borrow any book!");
         }
+
+        // TODO: check if member has any unpaid fines
+
         reservation.setMember(member);
 
         Book book = bookRepository.findById(isbn)
                 .orElseThrow(() -> new IllegalStateException("Book with isbn " + isbn + " does not exist!"));
+
+        // check if there are available book items in the library
         List<BookItem> bookItems = bookItemRepository.selectAvailableBookItems(isbn);
         if (!bookItems.isEmpty()) {
             throw new IllegalStateException("There are available book copies!");
