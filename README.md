@@ -14,17 +14,17 @@
 11. Prohibited members cannot borrow any book.
 
 ## ERD:
-https://github.com/dohoangnhung/library-management-system/issues/1#issue-1478805270
+![ERD-Relational Table drawio](https://user-images.githubusercontent.com/74888302/205892573-b3caa451-902a-4625-94ed-f5a626fb84d5.png)
 
 ## Use Goal Use Case:
 ![Use Case Diagram drawio](https://user-images.githubusercontent.com/74888302/205892410-c41de2d2-c57d-4c18-85bb-999def6c9d8e.png)
 
 ## Activity Diagrams:
 ### ✔️Book Borrowing:
-<img src="D:\SpringBootProjects\diagrams\library-management-system\Activity Diagram-Borrow book.drawio.png"/>
+![Activity Diagram-Borrow book drawio](https://user-images.githubusercontent.com/74888302/205892684-fac25cca-5cdc-41f6-9a3c-5e4eb9e830af.png)
 
 ### ✔️Book Returning:
-<img src="D:\SpringBootProjects\diagrams\library-management-system\Activity Diagram-Return book.drawio.png"/>
+![Activity Diagram-Return book drawio](https://user-images.githubusercontent.com/74888302/205892744-58a27d8f-18ae-4e43-b122-4d146580b9ba.png)
 
 ### ✔️Book Reservation:
-<img src="D:\SpringBootProjects\diagrams\library-management-system\Activity Diagram-Reserve book.drawio.png"/>
+![Activity Diagram-Reserve book drawio](https://user-images.githubusercontent.com/74888302/205892789-4cfd525b-c216-4291-9372-103d96194fb9.png)
