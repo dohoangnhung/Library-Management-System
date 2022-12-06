@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
@@ -18,12 +20,19 @@ public class Fine {
 
     @Id
     @Column(updatable = false)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(
+            name = "uuid",
+            strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = @org.hibernate.annotations.Parameter(
+                    name = "uuid_generator_strategy_class",
+                    value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+            )
+    )
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID fineId;
 
-    @OneToOne(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
+    @OneToOne
     @JoinColumn(
             name = "borrow_id",
             referencedColumnName = "borrowId"
