@@ -14,11 +14,10 @@
 11. Prohibited members cannot borrow any book.
 
 ## ERD:
-<img src="D:\SpringBootProjects\diagrams\library-management-system\ERD-ERD.drawio.png"/>
-<img src="D:\SpringBootProjects\diagrams\library-management-system\ERD-Relational Table.drawio.png"/>
+https://github.com/dohoangnhung/library-management-system/issues/1#issue-1478805270
 
 ## Use Goal Use Case:
-<img src="D:\SpringBootProjects\diagrams\library-management-system\Use Case Diagram.drawio.png"/>
+![Use Case Diagram drawio](https://user-images.githubusercontent.com/74888302/205892410-c41de2d2-c57d-4c18-85bb-999def6c9d8e.png)
 
 ## Activity Diagrams:
 ### ✔️Book Borrowing:
